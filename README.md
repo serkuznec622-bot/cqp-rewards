@@ -17,25 +17,37 @@ The Oracle and demo application are built on Node.js. Below are the steps to dep
 
 ## Objectives
 
-1. **Transparency**
-    - Players should:
-      - Be able to review the source code of the reward distribution mechanism  
-      - Have access to all rewards from the current and past cycles  
-      - Find the blocks they opened and verify that their actions were honestly recorded in the system  
-    - Developers should not:
-      - Change the total reward amount  
-      - Influence how rewards are distributed among players  
-      - Know where the prizes are hidden  
-2. **Result Reproducibility**
-    - Regardless of the device running the mechanism, the results should be deterministic and independent of external influences, given the same sequence of actions.  
-3. **Developer Obfuscation**
-    - The mechanism must prevent developers from knowing where the prizes are located. Everything should depend solely on player actions. Each subsequent action should randomly change the reward distribution while ensuring reproducibility for identical sequences of actions.  
-4. **Guaranteed Reward Allocation**
-    - The mechanism should be designed so that if all blocks are opened, all available rewards are distributed, and players should be able to verify this.  
-5. **Current Cycle Demonstration**
-    - The mechanism should be able to demonstrate the operation of the current cycle, eliminating the possibility of cheating by other players.  
-6. **Historical Cycle Analysis**
-    - Players should have the ability to review their actions and those of other players in a fair simulation to ensure that their rewards were distributed fairly.  
+### Transparency
+
+Players should:
+- be able to review the source code of the reward distribution mechanism  
+- have the opportunity to review all the rewards from the current and past cycles  
+- check the blocks they opened and verify that their actions were honestly recorded in the system
+  
+Developers should not:
+- change the total reward amount  
+- influence how rewards are distributed among players  
+- know where the prizes are hidden  
+
+### Result Reproducibility
+
+Regardless of the device running the mechanism, the results should be deterministic and independent of external influences, given the same sequence of actions.  
+
+### Hidden From Developers
+
+The mechanism must prevent developers from knowing where the prizes are located. Everything should depend solely on player actions. Each subsequent action should randomly change the reward distribution while ensuring reproducibility for identical sequences of actions.  
+
+### Guaranteed Reward Allocation
+
+The mechanism should be designed so that if all blocks are opened, all available rewards are distributed, and players should be able to verify this.  
+
+### Current Cycle Demonstration
+
+The mechanism should be able to demonstrate the operation of the current cycle, eliminating the possibility of cheating by other players.  
+
+### Historical Cycle Analysis
+
+Players should have the ability to review their actions and those of other players in a fair simulation to ensure that their rewards were distributed fairly.  
 
 ## Oracle
 
@@ -49,6 +61,7 @@ To achieve these objectives, the Oracle algorithm was developed, following this 
 6. The calculated reward is granted to the player.  
 7. The process returns to step 3.  
 
+> [!IMPORTANT]
 > As seen in this workflow, each player action modifies the hash, which determines the next reward. Thus, even on the same Oracle, different field-opening sequences lead to different results.  
 
 ### Internal Structure
@@ -62,6 +75,7 @@ The Oracle's code is located within the downloaded application in the `libs/orac
 - `libs/oracle/src/test` contains functions for testing the Oracle and the random number generation mechanism, ensuring result reproducibility and Oracle functionality.  
 - `public/history` stores the history of opened fields for the current and past cycles, allowing players to verify the algorithm's fairness.  
 
+> [!IMPORTANT]
 > Importantly, we do not store the current cycle's seed in the history to prevent cheating attempts.  
 
 ## Demo Application
@@ -70,6 +84,7 @@ The demo application allows players to open a simulation of the current cycle to
 
 One way to verify the consistency between the demo application and the real game is to take a screenshot of a chosen field and compare the results in the demo after the cycle ends. Players can also check all uncovered super prizes and prizes that were left unclaimed in that cycle.  
 
+> [!IMPORTANT]
 > We do not disclose player data associated with block openings to maintain user anonymity.  
 
 ### Internal Structure
@@ -77,4 +92,4 @@ One way to verify the consistency between the demo application and the real game
 - `src/controllers/field-controller.js` handles communication between the demo application and the Oracle, tracking opened fields, requesting new rewards, and implementing UI event handling.  
 - `src/cycles` contains all initialization data for the Oracle for the current and past cycles.  
 
-## The Crypto Quest team is always open to suggestions and sincerely wishes you good luck!  
+## The Crypto Quest team is always open to suggestions and sincerely wishes you good luck!
