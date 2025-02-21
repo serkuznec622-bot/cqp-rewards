@@ -44,7 +44,7 @@ const TON_500 = { key: "TON", value: 5.00e9 };
 const TON_1000 = { key: "TON", value: 10.00e9 };
 
 const TON_60000 = { key: "TON", value: 600.00e9 };
-const TON_200000 = { key: "TON", value: 2000.00e9 };
+const TON_700000 = { key: "TON", value: 7000.00e9 };
 
 export function makeOracleInstanceV1() {
 	const oracle = Oracle.make(1048576, [ "dig", "open" ]);
@@ -97,7 +97,7 @@ export function makeOracleInstanceV1() {
 	//oracle.addPredictions("open", 20, { ...TON_1000, cycle: 1 });
 	
 	oracle.addPredictions("open", 10, { ...TON_60000, cycle: 1, super: true });
-	oracle.addPredictions("open", 1, { ...TON_200000, cycle: 1, jackpot: true });
+	oracle.addPredictions("open", 1, { ...TON_700000, cycle: 1, jackpot: true });
 
 	oracle.validatePredictions("dig");
 	oracle.validatePredictions("open", { minimalChance: 100 });
