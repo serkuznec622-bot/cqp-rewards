@@ -1,9 +1,9 @@
-import {makeOracleInstanceV1} from "../../libs/oracle/src/oracle-instance";
+import {makeOracleInstanceV2} from "../../libs/oracle/src/oracle-instance";
 import {fetchAsText} from "@/utils";
 
 export async function get() {
 	return {
-		oracle: makeOracleInstanceV1(),
+		oracle: makeOracleInstanceV2(),
 		history: await fetchAsText("/history/cycle-current.txt")
 	}
 }

@@ -1,8 +1,7 @@
 import crypto from "crypto";
-import EventEmitter from "events";
 
 import { Seed } from "../src/core/seed.js";
-import { makeOracleInstanceV1 } from "../src/oracle-instance.js";
+import { makeOracleInstanceV2 } from "../src/oracle-instance.js";
 import { oracleDig, oracleOpen } from "../src/oracle-utils.js";
 
 async function executeTest(name, func, ...args) {
@@ -169,7 +168,7 @@ function checkOracleEmpty(oracle) {
 
 function checkOracle() {
 	{
-		const oracle = makeOracleInstanceV1();
+		const oracle = makeOracleInstanceV2();
 		const seed = createRandomSeed(2);
 
 		for (let i = 0; i < oracle.attempts; ++i) {
@@ -184,7 +183,7 @@ function checkOracle() {
 	}
 
 	{
-		const oracle = makeOracleInstanceV1();
+		const oracle = makeOracleInstanceV2();
 		const seed = createRandomSeed(2);
 
 		const array = [];
@@ -205,10 +204,10 @@ function checkOracle() {
 }
 
 function checkOracleRepeatability() {
-	const oracle1 = makeOracleInstanceV1();
+	const oracle1 = makeOracleInstanceV2();
 	const seed1 = createRandomSeed(2);
 
-	const oracle2 = makeOracleInstanceV1();
+	const oracle2 = makeOracleInstanceV2();
 	const seed2 = seed1.copy();
 
 	let hash1 = crypto.createHash("sha256");
@@ -245,7 +244,7 @@ function checkOracleRepeatability() {
 }
 
 function checkOracleCopy() {
-	const oracle1 = makeOracleInstanceV1();
+	const oracle1 = makeOracleInstanceV2();
 	const seed1 = createRandomSeed(2);
 
 	let oracle2 = oracle1.copy();
