@@ -1,7 +1,8 @@
 import crypto from "crypto";
+import { v4 } from "uuid";
 
 import { Seed } from "../src/core/seed.js";
-import { makeOracleInstanceV2 } from "../src/oracle-instance.js";
+import { makeOracleInstanceV3 } from "../src/oracle-instance.js";
 import { oracleDig, oracleOpen } from "../src/oracle-utils.js";
 
 async function executeTest(name, func, ...args) {
@@ -167,15 +168,17 @@ function checkOracleEmpty(oracle) {
 }
 
 function checkOracle() {
+	const salt = v4();
+	
 	{
-		const oracle = makeOracleInstanceV2();
+		const oracle = makeOracleInstanceV3();
 		const seed = createRandomSeed(2);
 
 		for (let i = 0; i < oracle.attempts; ++i) {
-			const dig = oracleDig(i, oracle, seed);
+			const dig = oracleDig(i, oracle, seed, salt);
 			let open = null;
 			if (dig.hasOpenAction) {
-				open = oracleOpen(i, oracle, seed);
+				open = oracleOpen(i, oracle, seed, salt);
 			}
 		}
 
@@ -183,19 +186,19 @@ function checkOracle() {
 	}
 
 	{
-		const oracle = makeOracleInstanceV2();
+		const oracle = makeOracleInstanceV3();
 		const seed = createRandomSeed(2);
 
 		const array = [];
 
 		for (let i = 0; i < oracle.attempts; ++i) {
-			const dig = oracleDig(i, oracle, seed);
+			const dig = oracleDig(i, oracle, seed, salt);
 			array.push(dig);
 		}
 
 		for (let i = 0; i < oracle.attempts; ++i) {
 			if (array[i].hasOpenAction) {
-				const open = oracleOpen(i, oracle, seed);
+				const open = oracleOpen(i, oracle, seed, salt);
 			}
 		}
 
@@ -204,20 +207,21 @@ function checkOracle() {
 }
 
 function checkOracleRepeatability() {
-	const oracle1 = makeOracleInstanceV2();
+	const salt = v4();
+	const oracle1 = makeOracleInstanceV3();
 	const seed1 = createRandomSeed(2);
 
-	const oracle2 = makeOracleInstanceV2();
+	const oracle2 = makeOracleInstanceV3();
 	const seed2 = seed1.copy();
 
 	let hash1 = crypto.createHash("sha256");
 	for (let i = 0; i < oracle1.attempts; ++i) {
-		const dig = oracleDig(i, oracle1, seed1);
+		const dig = oracleDig(i, oracle1, seed1, salt);
 		hash1.update(JSON.stringify(dig));
 
 		let open = null;
 		if (dig.hasOpenAction) {
-			open = oracleOpen(i, oracle1, seed1);
+			open = oracleOpen(i, oracle1, seed1, salt);
 			hash1.update(JSON.stringify(open));
 		}
 	}
@@ -226,12 +230,12 @@ function checkOracleRepeatability() {
 
 	let hash2 = crypto.createHash("sha256");
 	for (let i = 0; i < oracle2.attempts; ++i) {
-		const dig = oracleDig(i, oracle2, seed2);
+		const dig = oracleDig(i, oracle2, seed2, salt);
 		hash2.update(JSON.stringify(dig));
 
 		let open = null;
 		if (dig.hasOpenAction) {
-			open = oracleOpen(i, oracle2, seed2);
+			open = oracleOpen(i, oracle2, seed2, salt);
 			hash2.update(JSON.stringify(open));
 		}
 	}
@@ -244,7 +248,8 @@ function checkOracleRepeatability() {
 }
 
 function checkOracleCopy() {
-	const oracle1 = makeOracleInstanceV2();
+	const salt = v4();
+	const oracle1 = makeOracleInstanceV3();
 	const seed1 = createRandomSeed(2);
 
 	let oracle2 = oracle1.copy();
@@ -252,12 +257,12 @@ function checkOracleCopy() {
 
 	let hash1 = crypto.createHash("sha256");
 	for (let i = 0; i < oracle1.attempts; ++i) {
-		const dig = oracleDig(i, oracle1, seed1);
+		const dig = oracleDig(i, oracle1, seed1, salt);
 		hash1.update(JSON.stringify(dig));
 
 		let open = null;
 		if (dig.hasOpenAction) {
-			open = oracleOpen(i, oracle1, seed1);
+			open = oracleOpen(i, oracle1, seed1, salt);
 			hash1.update(JSON.stringify(open));
 		}
 	}
@@ -268,12 +273,12 @@ function checkOracleCopy() {
 	for (let i = 0; i < oracle2.attempts; ++i) {
 		const oracle2Copy = oracle2.copy();
 		const seed2Copy = seed2.copy();
-		const dig = oracleDig(i, oracle2Copy, seed2Copy);
+		const dig = oracleDig(i, oracle2Copy, seed2Copy, salt);
 		hash2.update(JSON.stringify(dig));
 
 		let open = null;
 		if (dig.hasOpenAction) {
-			open = oracleOpen(i, oracle2Copy, seed2Copy);
+			open = oracleOpen(i, oracle2Copy, seed2Copy, salt);
 			hash2.update(JSON.stringify(open));
 		}
 

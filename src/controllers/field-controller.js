@@ -146,7 +146,7 @@ class FieldController extends EventEmitter {
 		}
 
 		this.history += `\ndig ${index}`;
-		const payload = oracleDig(index, this.oracle, this.seed);
+		const payload = oracleDig(index, this.oracle, this.seed, null);
 		this.blocks.dig[index] = {
 			data: payload.data,
 			empty: payload.empty,
@@ -166,7 +166,7 @@ class FieldController extends EventEmitter {
 		}
 
 		this.history += `\nopen ${index}`;
-		const payload = oracleOpen(index, this.oracle, this.seed);
+		const payload = oracleOpen(index, this.oracle, this.seed, null);
 
 		this.blocks.open[index] = {
 			data: payload.data,

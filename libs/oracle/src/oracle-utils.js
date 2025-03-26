@@ -8,8 +8,20 @@ export function seedOpen(index, seed) {
 	seed.transform("open " + index);
 }
 
-export function oracleDig(index, oracle, seed) {
+export function seedSalt(salt, seed) {
+	seed.transform("salt " + salt);
+}
+
+export function oracleDig(index, oracle, seed, salt) {
+	if (salt === undefined) {
+		throw new Error("Undefined salt");
+	}
+
 	seedDig(index, seed);
+
+	if (salt !== null) {
+		seedSalt(salt, seed);
+	}
 
 	let hasOpenAction = false;
 
@@ -28,8 +40,16 @@ export function oracleDig(index, oracle, seed) {
 	};
 }
 
-export function oracleOpen(index, oracle, seed) {
+export function oracleOpen(index, oracle, seed, salt) {
+	if (salt === undefined) {
+		throw new Error("Undefined salt");
+	}
+
 	seedOpen(index, seed);
+
+	if (salt !== null) {
+		seedSalt(salt, seed);
+	}
 
 	const session = seed.getSession();
 	const prediction = oracle.getPrediction("open", session, oraclePromiseType.truePromise);
