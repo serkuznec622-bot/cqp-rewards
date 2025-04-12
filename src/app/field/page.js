@@ -433,7 +433,7 @@ function Selector({ onSelected }) {
 				<option value="cycle-current">CURRENT CYCLE</option>
 				<option value="cycle-1">CYCLE 1</option>
 				<option value="cycle-2">CYCLE 2</option>
-				<option value="cycle-3" disabled>CYCLE 3</option>
+				<option value="cycle-3">CYCLE 3</option>
 				<option value="cycle-4" disabled>CYCLE 4</option>
 				<option value="cycle-5" disabled>CYCLE 5</option>
 				<option value="cycle-6" disabled>CYCLE 6</option>

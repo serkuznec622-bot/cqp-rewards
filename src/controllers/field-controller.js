@@ -71,6 +71,7 @@ class FieldController extends EventEmitter {
 	reset() {
 		this.oracle = null;
 		this.seed = null;
+		this.salt = null;
 		this.history = null;
 
 		this.blocks = {
@@ -115,10 +116,13 @@ class FieldController extends EventEmitter {
 				}
 
 				const command = split[0];
-				const block = parseInt(split[1]);
-				if (command === "dig") {
+				if (command === "salt") {
+					this.salt = split[1];
+				} else if (command === "dig") {
+					const block = parseInt(split[1]);
 					this.dig(block);
 				} else if (command === "open") {
+					const block = parseInt(split[1]);
 					this.open(block);
 				} else {
 					throw new Error("Wrong history line: " + line);
@@ -146,7 +150,7 @@ class FieldController extends EventEmitter {
 		}
 
 		this.history += `\ndig ${index}`;
-		const payload = oracleDig(index, this.oracle, this.seed, null);
+		const payload = oracleDig(index, this.oracle, this.seed, this.salt);
 		this.blocks.dig[index] = {
 			data: payload.data,
 			empty: payload.empty,
@@ -166,7 +170,7 @@ class FieldController extends EventEmitter {
 		}
 
 		this.history += `\nopen ${index}`;
-		const payload = oracleOpen(index, this.oracle, this.seed, null);
+		const payload = oracleOpen(index, this.oracle, this.seed, this.salt);
 
 		this.blocks.open[index] = {
 			data: payload.data,
