@@ -435,7 +435,7 @@ function Selector({ onSelected }) {
 				<option value="cycle-2">CYCLE 2</option>
 				<option value="cycle-3">CYCLE 3</option>
 				<option value="cycle-4">CYCLE 4</option>
-				<option value="cycle-5" disabled>CYCLE 5</option>
+				<option value="cycle-5">CYCLE 5</option>
 				<option value="cycle-6" disabled>CYCLE 6</option>
 				<option value="cycle-7" disabled>CYCLE 7</option>
 				<option value="cycle-8" disabled>CYCLE 8</option>
