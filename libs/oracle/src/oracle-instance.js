@@ -476,3 +476,66 @@ export function makeOracleInstanceV7() {
 
 	return oracle;
 }
+
+export function makeOracleInstanceV8() {
+	const oracle = Oracle.make(1048576, [ "dig", "open" ]);
+
+	oracle.addPredictions("dig", 96462, { ...gem1, cycle: 8 }, [ "open" ]);
+	oracle.addPredictions("dig", 25723, { ...gem2, cycle: 8 }, [ "open" ]);
+	oracle.addPredictions("dig", 6430, { ...gem3, cycle: 8 }, [ "open" ]);
+	oracle.addPredictions("dig", 128615, null, [ "open" ]);
+
+	oracle.addPredictions("open", 168000, { ...USDT_15, cycle: 8 });
+	oracle.addPredictions("open", 70000, { ...USDT_20, cycle: 8 });
+	oracle.addPredictions("open", 40000, { ...USDT_34, cycle: 8 });
+	oracle.addPredictions("open", 15000, { ...USDT_50, cycle: 8 });
+	oracle.addPredictions("open", 7500, { ...USDT_75, cycle: 8 });
+	oracle.addPredictions("open", 4500, { ...USDT_100, cycle: 8 });
+	oracle.addPredictions("open", 3000, { ...USDT_125, cycle: 8 });
+	oracle.addPredictions("open", 2500, { ...USDT_133, cycle: 8 });
+	oracle.addPredictions("open", 1500, { ...USDT_150, cycle: 8 });
+	oracle.addPredictions("open", 1000, { ...USDT_175, cycle: 8 });
+	oracle.addPredictions("open", 1000, { ...USDT_200, cycle: 8 });
+	oracle.addPredictions("open", 500, { ...USDT_500, cycle: 8 });
+	oracle.addPredictions("open", 250, { ...USDT_1000, cycle: 8 });
+	oracle.addPredictions("open", 100, { ...USDT_1500, cycle: 8 });
+	oracle.addPredictions("open", 30, { ...USDT_2500, cycle: 8 });
+	oracle.addPredictions("open", 20, { ...USDT_5000, cycle: 8 });
+	oracle.addPredictions("open", 10, { ...USDT_10000, cycle: 8 });
+
+	oracle.addPredictions("open", 9, { ...USDT_300000, cycle: 1, super: true });
+	oracle.addPredictions("open", 1, { ...USDT_300000, cycle: 4, super: true });
+	oracle.addPredictions("open", 2, { ...USDT_300000, cycle: 5, super: true });
+	oracle.addPredictions("open", 1, { ...USDT_3000000, cycle: 4, jackpot: true });
+
+	oracle.addPredictions("open", 205000, { ...TON_01, cycle: 8 });
+	oracle.addPredictions("open", 100000, { ...TON_03, cycle: 8 });
+	oracle.addPredictions("open", 100000, { ...TON_05, cycle: 8 });
+	oracle.addPredictions("open", 30000, { ...TON_10, cycle: 8 });
+	oracle.addPredictions("open", 15000, { ...TON_15, cycle: 8 });
+	oracle.addPredictions("open", 8000, { ...TON_20, cycle: 8 });
+	oracle.addPredictions("open", 7500, { ...TON_25, cycle: 8 });
+	oracle.addPredictions("open", 4000, { ...TON_30, cycle: 8 });
+	oracle.addPredictions("open", 3000, { ...TON_35, cycle: 8 });
+	oracle.addPredictions("open", 1500, { ...TON_50, cycle: 8 });
+	oracle.addPredictions("open", 700, { ...TON_75, cycle: 8 });
+	oracle.addPredictions("open", 700, { ...TON_100, cycle: 8 });
+	oracle.addPredictions("open", 400, { ...TON_200, cycle: 8 });
+	oracle.addPredictions("open", 400, { ...TON_300, cycle: 8 });
+	oracle.addPredictions("open", 100, { ...TON_500, cycle: 8 });
+	oracle.addPredictions("open", 50, { ...TON_700, cycle: 8 });
+	oracle.addPredictions("open", 30, { ...TON_1000, cycle: 8 });
+	oracle.addPredictions("open", 20, { ...TON_2000, cycle: 8 });
+	oracle.addPredictions("open", 10, { ...TON_3000, cycle: 8 });
+
+	oracle.addPredictions("open", 8, { ...TON_60000, cycle: 1, super: true });
+	oracle.addPredictions("open", 1, { ...TON_60000, cycle: 2, super: true });
+	oracle.addPredictions("open", 2, { ...TON_60000, cycle: 5, super: true });
+	oracle.addPredictions("open", 1, { ...TON_60000, cycle: 6, super: true });
+	oracle.addPredictions("open", 1, { ...TON_1000000, cycle: 4, jackpot: true });
+
+	oracle.validatePredictions("dig");
+	oracle.validatePredictions("open", { minimalChance: 100 });
+
+	return oracle;
+}
