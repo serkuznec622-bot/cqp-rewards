@@ -438,7 +438,7 @@ function Selector({ onSelected }) {
 				<option value="cycle-5">CYCLE 5</option>
 				<option value="cycle-6">CYCLE 6</option>
 				<option value="cycle-7">CYCLE 7</option>
-				<option value="cycle-8" disabled>CYCLE 8</option>
+				<option value="cycle-8">CYCLE 8</option>
 				<option value="cycle-9" disabled>CYCLE 9</option>
 			</select>
 			<button className={styles.selector_button} onClick={simulate}>
